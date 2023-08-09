@@ -5,7 +5,6 @@ MAX=80
 CONTROL_FILE=/sys/class/power_supply/battery/input_suspend
 CAPACITY_FILE=/sys/class/power_supply/battery/capacity
 STATUS_FILE=/sys/class/power_supply/battery/status
-POWERED_FILE=dumpsys battery | grep "AC powered: false"
 FILE_VAR=var_file
 INTERVAL_ON_VAR=10
 INTERVAL_OFF_VAR=60
@@ -20,7 +19,7 @@ while true
 do
   CONTROL_1_VAR=$(cat $CONTROL_FILE)
   CAPACITY_VAR=$(cat $CAPACITY_FILE)  
-  POWERED_VAR=$($POWERED_FILE)
+  POWERED_VAR=$(dumpsys battery | grep "AC powered: false")
     
   if [[ $POWERED_VAR = "" ]]
   then
@@ -59,9 +58,9 @@ do
         fi  
       fi
     fi    
-    INTERVAL_VAR=INTERVAL_ON_VAR
+    INTERVAL_VAR=$INTERVAL_ON_VAR
   else
-    INTERVAL_VAR=INTERVAL_OFF_VAR
+    INTERVAL_VAR=$INTERVAL_OFF_VAR
   fi
   STATUS_VAR=$(cat $STATUS_FILE)
   #echo 'Wait...' $INTERVAL_VAR's' $STATUS_VAR
