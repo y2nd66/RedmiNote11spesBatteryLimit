@@ -23,7 +23,7 @@ do
   POWERED_VAR=$(echo $POWERED_VAR)
   # log -t batterylimit ${#POWERED_VAR}
     
-  if [[ $POWERED_VAR = "0" ]]  
+  if [[ ${#POWERED_VAR} = "0" ]]  
   then
     INTERVAL_VAR=$INTERVAL_OFF_VAR  
   else
